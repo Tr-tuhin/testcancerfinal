@@ -77,6 +77,10 @@ if st.button('Predict Lung Cancer Risk'):
 
         st.subheader('Prediction Results')
 
+        # Show raw output
+        st.write(f"🔍 Model prediction (raw output): {prediction}")
+        print(f"Model prediction: {prediction}")  # For debug/console
+
         if prediction[0] == 1:
             st.error('High risk of lung cancer detected')
             risk_level = "High"
