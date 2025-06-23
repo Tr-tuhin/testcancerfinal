@@ -73,20 +73,28 @@ def prepare_input():
 if st.button('Predict Lung Cancer Risk'):
     try:
         input_data = prepare_input()
-        prediction = model.predict(input_data).flatten()
+        # prediction = model.predict(input_data).flatten()
 
         st.subheader('Prediction Results')
 
-        # Show raw output
-        st.write(f"🔍 Model prediction (raw output): {prediction}")
-        print(f"Model prediction: {prediction}")  # For debug/console
+        # # Show raw output
+        # st.write(f"🔍 Model prediction (raw output): {prediction}")
+        # print(f"Model prediction: {prediction}")  # For debug/console
 
+        
+
+        proba = model.predict_proba(input_data)
+        if proba[0][1] > 0.3:  # lower threshold
+            prediction = [1]
+        else:
+            prediction = [0]
         if prediction[0] == 1:
             st.error('High risk of lung cancer detected')
             risk_level = "High"
         else:
             st.success('Low risk of lung cancer detected')
             risk_level = "Low"
+
 
         # Confidence (if available)
         try:
